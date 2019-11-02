@@ -1,5 +1,5 @@
 
-//asterisk 13.x
+//asterisk 17.x
 
 #include "asterisk.h"
 
@@ -9,7 +9,9 @@
 #include "asterisk/utils.h"
 #include "asterisk/linkedlists.h"
 
-#include "g729/g729.h"
+#include "g729/typedef.h"
+#include "g729/ld8a.h"
+#include "g729/g729a.h"
 
 #include "asterisk/slin.h"
 
@@ -31,7 +33,7 @@ struct g729_decoder_pvt {
 static int g729tolin_new(struct ast_trans_pvt *pvt)
 {
 	g729_decoder_pvt *tmp = pvt->pvt;
-	g729_decoder_init(&tmp->state);
+	g729a_decoder_init(&tmp->state);
 	return 0;
 }
 
@@ -62,7 +64,7 @@ static int g729tolin_framein(struct ast_trans_pvt *pvt, struct ast_frame *f)
 		}
 
 		int16_t *dst = pvt->OUTBUF_SLIN + pvt->samples;
-		g729a_decoder(&tmp->state, dst, (unsigned char*)f->FRAME_DATA + x, FrameSize);
+		g729a_decoder(&tmp->state, (unsigned char*)f->FRAME_DATA + x, dst, FrameSize);
 		pvt->samples += G729_SAMPLES;
 		pvt->datalen += 2 * G729_SAMPLES;
 	}
@@ -71,10 +73,10 @@ static int g729tolin_framein(struct ast_trans_pvt *pvt, struct ast_frame *f)
 
 //#include "g729_slin_ex.h"
 unsigned char g729_slin_ex[50] =
-	{ 0x8F, 0x65, 0x7D, 0x4E, 0x3E, 0x0A, 0xF2, 0xBA, 0xF1, 0x5E
-	  0x0F, 0xB6, 0x73, 0xB9, 0x33, 0x62, 0xB8, 0x2B, 0x1A, 0x57
-	  0x31, 0xF8, 0x37, 0xC4, 0xE0, 0x5A, 0xF0, 0x8C, 0x8D, 0x50
-	  0xA3, 0xB7, 0xC1, 0x9D, 0xB5, 0x60, 0x70, 0x36, 0x39, 0x1E
+	{ 0x8F, 0x65, 0x7D, 0x4E, 0x3E, 0x0A, 0xF2, 0xBA, 0xF1, 0x5E,
+	  0x0F, 0xB6, 0x73, 0xB9, 0x33, 0x62, 0xB8, 0x2B, 0x1A, 0x57,
+	  0x31, 0xF8, 0x37, 0xC4, 0xE0, 0x5A, 0xF0, 0x8C, 0x8D, 0x50,
+	  0xA3, 0xB7, 0xC1, 0x9D, 0xB5, 0x60, 0x70, 0x36, 0x39, 0x1E,
 	  0x09, 0x4C, 0x2F, 0xC2, 0xA7, 0xB7, 0xEE, 0x37, 0x18, 0x52 };
 
 static struct ast_frame *g729tolin_sample(void)
@@ -125,7 +127,7 @@ struct g729_encoder_pvt {
 
 static int lintog729_new(struct ast_trans_pvt *pvt)
 {
-	g729_encoder_init(&pvt->pvt->state);
+	g729a_encoder_init(&pvt->pvt->state);
 	return 0;
 }
 
