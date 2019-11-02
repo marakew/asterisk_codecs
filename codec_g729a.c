@@ -9,9 +9,9 @@
 #include "asterisk/utils.h"
 #include "asterisk/linkedlists.h"
 
-#include "g729/typedef.h"
-#include "g729/ld8a.h"
-#include "g729/g729a.h"
+#include "g729a/typedef.h"
+#include "g729a/ld8a.h"
+#include "g729a/g729a.h"
 
 #include "asterisk/slin.h"
 
