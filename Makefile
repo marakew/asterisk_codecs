@@ -20,8 +20,8 @@ g729a/%.o: g729a/%.c
 codec_g729a.o : codec_g729a.c
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-clean:
-	@rm -rf *.so *.o $(G729AOBJS)
-
 codec_g729a.so: $(G729AOBJS) codec_g729a.o
 	$(CC) -shared -o $@ codec_g729a.o $(G729AOBJS)
+
+clean:
+	@rm -rf *.so *.o $(G729AOBJS)
