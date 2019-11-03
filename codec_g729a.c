@@ -127,7 +127,7 @@ struct g729_encoder_pvt {
 
 static int lintog729_new(struct ast_trans_pvt *pvt)
 {
-	g729a_encoder_init(&pvt->pvt->state);
+	g729a_encoder_init(&pvt->pvt->state, 0);
 	return 0;
 }
 
