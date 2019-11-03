@@ -6,6 +6,8 @@ CODECS+=codec_g729a.so
 
 CFLAGS=
 CFLAGS+=-fPIC
+#CFLAGS+=-g -O0
+CFLAGS+=-O3
 CFLAGS+=-I$(ASTDIR)/include
 
 G729AOBJS=$(patsubst %.c,%.o,$(wildcard g729a/*.c))
