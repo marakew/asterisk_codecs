@@ -1,0 +1,3 @@
+[submodule "g729a"]
+	path = g729a
+	url = https://github.com/marakew/g729a
