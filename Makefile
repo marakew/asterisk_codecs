@@ -12,16 +12,16 @@ CFLAGS+=-I$(ASTDIR)/include
 
 G729AOBJS=$(patsubst %.c,%.o,$(wildcard g729a/*.c))
 
-.c.o:
+all: $(CODECS)
+
+g729a/%.o: g729a/%.c
 	$(CC) -c -o $@ $(CFLAGS) $<
 
 codec_g729a.o : codec_g729a.c
 	$(CC) -c -o $@ $(CFLAGS) $<
 
-all: $(CODECS)
-
 clean:
-	rm -rf *.so *.o
+	@rm -rf *.so *.o $(G729AOBJS)
 
-codec_g729a.so: codec_g729a.o $(G729AOBJS)
+codec_g729a.so: $(G729AOBJS) codec_g729a.o
 	$(CC) -shared -o $@ codec_g729a.o $(G729AOBJS)
