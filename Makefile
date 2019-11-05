@@ -10,7 +10,7 @@ CFLAGS+=-fPIC -pipe -Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-dec
 CFLAGS+=-O3
 CFLAGS+=-I$(ASTDIR)/include
 
-LIBG729A=g729a/g729ab.a
+LIBG729A=g729a/libg729ab.a
 
 all: $(CODECS)
 
